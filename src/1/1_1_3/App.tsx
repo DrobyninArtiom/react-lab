@@ -1,10 +1,5 @@
-// 1_1_3 Spot the mistake
-/* 
-  Исправьте ошибку в компоненте Profile.
-  Вспомните, как react отличает компоненты от обычных HTML-тегов.
-*/
-
-function profile() {
+// 1_1_3 Spot the mistake - Fixed component name to start with uppercase letter as per React convention
+function Profile() {
     return (
       <img
         src="AlanHart.jpg"
@@ -12,15 +7,14 @@ function profile() {
       />
     );
   }
-  
+   
   export default function Gallery() {
     return (
       <section>
         <h1>Amazing scientists</h1>
-        <profile />
-        <profile />
-        <profile />
+        <Profile />
+        <Profile />
+        <Profile />
       </section>
     );
   }
-  
