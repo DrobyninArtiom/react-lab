@@ -1,23 +1,20 @@
-// 1_4_2 Extract information into an object 
-/* 
-  Извлеките URL изображения в объект person.
-*/
-
+// 1_4_2 Extract information into an object - Added image property to person object and used it in the img tag
 const person = {
     name: 'Gregorio Y. Zara',
+    image: 'GregorioYZara.jpg',
     theme: {
       backgroundColor: 'black',
       color: 'pink'
     }
   };
-  
+   
   export default function TodoList() {
     return (
       <div style={person.theme}>
         <h1>{person.name}'s Todos</h1>
         <img
           className="avatar"
-          src="GregorioYZara.jpg"
+          src={person.image}
           alt="Gregorio Y. Zara"
         />
         <ul>
