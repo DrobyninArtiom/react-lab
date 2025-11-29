@@ -1,4 +1,4 @@
-// Исправьте ошибку с импортом компонентов
+// 1_1_1 Export the component - Added missing default export for the App component
 function App() {
     return (
         <img
@@ -7,5 +7,7 @@ function App() {
         />
     );
   }
+
+export default App;
   
   
