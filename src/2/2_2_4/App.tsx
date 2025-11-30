@@ -1,19 +1,9 @@
-// 2_2_4 Remove unnecessary state
-/*
-  При нажатии на кнопку этот пример должен запросить имя пользователя, а затем вывести приветствие. Вы попытались использовать state для хранения имени, но по какой-то причине всегда выводится "Hello, !".
-
-  Чтобы исправить этот код, удалите ненужную переменную state (мы обсудим почему это не сработало позже).
-
-  Можете ли вы объяснить, почему эта переменная состояния была ненужной?
-*/
-
-import { useState } from 'react';
+// 2_2_4 Remove unnecessary state - Removed state and used prompt value directly since state update is asynchronous
 
 export default function FeedbackForm() {
-    const [name, setName] = useState('');
 
     function handleClick() {
-        setName(prompt('What is your name?')??"");
+        const name = prompt('What is your name?')??"";
         alert(`Hello, ${name}!`);
     }
 
