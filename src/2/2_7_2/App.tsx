@@ -1,8 +1,4 @@
-// 2_7_2 Remove an item from the shopping cart 
-/*
-    В этой корзине есть рабочая кнопка "+", но кнопка "-" ничего не делает. Вам нужно добавить обработчик события, чтобы нажатие на нее уменьшало count соответствующего товара. Если вы нажмете "-", когда счетчик будет равен 1, товар должен автоматически удалиться из корзины. Убедитесь, что он никогда не показывает 0.
-*/
-
+// 2_7_2 Remove an item from the shopping cart - Implemented function to decrease product count and remove item when count reaches 0
 import { useState } from 'react';
 
 const initialProducts = [
@@ -43,21 +39,41 @@ export default function ShoppingCart() {
         );
     }
 
+    function handleDecreaseClick(productId: number) {
+        setProducts(
+            products.map((product) => {
+                if (product.id === productId) {
+                    if (product.count > 1) {
+                        return {
+                            ...product,
+                            count: product.count - 1,
+                        };
+                    } else {
+                        // If count is 1, we'll filter this product out
+                        return null;
+                    }
+                } else {
+                    return product;
+                }
+            }).filter(Boolean) as typeof initialProducts
+        );
+    }
+    
     return (
-        <ul>
-            {products.map((product) => (
-                <li key={product.id}>
-                    {product.name} (<b>{product.count}</b>)
-                    <button
-                        onClick={() => {
-                            handleIncreaseClick(product.id);
-                        }}
-                    >
-                        +
-                    </button>
-                    <button>–</button>
-                </li>
-            ))}
-        </ul>
-    );
-}
+            <ul>
+                {products.map((product) => (
+                    <li key={product.id}>
+                        {product.name} (<b>{product.count}</b>)
+                        <button
+                            onClick={() => {
+                                handleIncreaseClick(product.id);
+                            }}
+                        >
+                            +
+                        </button>
+                        <button onClick={() => handleDecreaseClick(product.id)}>–</button>
+                    </li>
+                ))}
+            </ul>
+        );
+    }
