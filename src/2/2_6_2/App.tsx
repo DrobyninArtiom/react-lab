@@ -1,12 +1,4 @@
-// 2_6_2 Find and fix the mutation 
-/*
-    Имеется перетаскиваемый ящик на статичном фоне. Вы можете изменить цвет поля с помощью кнопки select.
-
-    Но есть ошибка. Если сначала переместить ящик, а затем изменить его цвет, фон (который не должен двигаться!) "перепрыгнет" на позицию ящика. Но этого не должно произойти: параметр position у Background установлен в initialPosition, что равно { x: 0, y: 0 }. Почему фон перемещается после изменения цвета?
-
-    Найдите ошибку и исправьте ее.
-*/
-
+// 2_6_2 Find and fix the mutation - Fixed by creating new position object to prevent state mutation
 import { useState } from 'react';
 import Background from './Background';
 import Box from './Box';
@@ -25,9 +17,14 @@ export default function Canvas() {
     });
 
     function handleMove(dx: number, dy: number) {
-        shape.position.x += dx;
-        shape.position.y += dy;
-    }
+            setShape(prevShape => ({
+                ...prevShape,
+                position: {
+                    x: prevShape.position.x + dx,
+                    y: prevShape.position.y + dy,
+                }
+            }));
+        }
 
     function handleColorChange(e: any) {
         setShape({
