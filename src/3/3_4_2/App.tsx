@@ -1,56 +1,53 @@
-// 3_4_2 Swap two form fields
-/*
-  Эта форма позволяет вводить имя и фамилию. В ней также есть флажок, контролирующий, какое поле будет первым. Если установить флажок, поле "Фамилия" появится перед полем "Имя".
-
-  Это почти работает, но есть ошибка. Если вы заполните поле "Имя" и установите флажок, текст останется в первом поле (теперь это "Фамилия"). Исправьте это так, чтобы при изменении порядка ввода текст также перемещался.
-*/
+// 3_4_2 Swap two form fields - Fixed by lifting state up to parent component and using keys to preserve field identity
 
 import { useState } from 'react';
 
 export default function App() {
-  const [reverse, setReverse] = useState(false);
-  let checkbox = (
-    <label>
-      <input
-        type="checkbox"
-        checked={reverse}
-        onChange={e => setReverse(e.target.checked)}
-      />
-      Reverse order
-    </label>
-  );
-  if (reverse) {
-    return (
-      <>
-        <Field label="Last name" /> 
-        <Field label="First name" />
-        {checkbox}
-      </>
+    const [reverse, setReverse] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    
+    let checkbox = (
+        <label>
+            <input
+                type="checkbox"
+                checked={reverse}
+                onChange={e => setReverse(e.target.checked)}
+            />
+            Reverse order
+        </label>
     );
-  } else {
-    return (
-      <>
-        <Field label="First name" /> 
-        <Field label="Last name" />
-        {checkbox}
-      </>
-    );    
-  }
+    if (reverse) {
+        return (
+            <>
+                <Field label="Last name" value={lastName} onChange={setLastName} key="lastName" />
+                <Field label="First name" value={firstName} onChange={setFirstName} key="firstName" />
+                {checkbox}
+            </>
+        );
+    } else {
+        return (
+            <>
+                <Field label="First name" value={firstName} onChange={setFirstName} key="firstName" />
+                <Field label="Last name" value={lastName} onChange={setLastName} key="lastName" />
+                {checkbox}
+            </>
+        );
+    }
 }
 
-function Field({ label }: { label: string }) {
-  const [text, setText] = useState('');
-  return (
-    <label>
-      {label}:{' '}
-      <input
-        type="text"
-        value={text}
-        placeholder={label}
-        onChange={e => setText(e.target.value)}
-      />
-    </label>
-  );
+function Field({ label, value, onChange }: { label: string, value: string, onChange: (value: string) => void }) {
+    return (
+        <label>
+            {label}:{' '}
+            <input
+                type="text"
+                value={value}
+                placeholder={label}
+                onChange={e => onChange(e.target.value)}
+            />
+        </label>
+    );
 }
 
 
