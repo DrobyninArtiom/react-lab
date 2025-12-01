@@ -4,7 +4,7 @@ export type State = {
 };
 
 export type Action = {
-    type: 'changed_selection';
+    type: 'changed_selection';  // Должно быть 'changed_selection' как в ContactList.tsx
     contactId: number;
 } | {
     type: 'edited_message';

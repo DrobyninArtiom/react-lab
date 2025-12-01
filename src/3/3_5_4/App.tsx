@@ -1,17 +1,11 @@
-// 3_5_4  Implement useReducer from scratch 
-/*
-  В предыдущих примерах вы импортировали хук useReducer из React. В этот раз вам предстоит реализовать хук useReducer самостоятельно! Вот заглушка для начала работы. Он не должен занимать более 10 строк кода.
 
-  Чтобы проверить свои изменения, попробуйте ввести текст в поле ввода или выбрать контакт.
-*/
-
-import { useReducer } from 'react';
+import { myUseReducer } from './myUseReducer';
 import Chat from './Chat';
 import ContactList from './ContactList';
 import { initialState, messengerReducer } from './messengerReducer';
 
 export default function Messenger() {
-  const [state, dispatch] = useReducer(messengerReducer, initialState);
+  const [state, dispatch] = myUseReducer(messengerReducer, initialState);
   const message = state.messages[state.selectedId];
   const contact = contacts.find((c) => c.id === state.selectedId)!!;
   return (
