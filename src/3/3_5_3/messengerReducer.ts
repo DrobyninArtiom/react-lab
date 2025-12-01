@@ -1,6 +1,6 @@
 export type State = {
     selectedId: number;
-    message: string;
+    messages: Record<number, string>; // Хранит черновики сообщений для каждого контакта
 };
 
 export type Action = {
@@ -15,7 +15,9 @@ export type Action = {
 
 export const initialState = {
     selectedId: 0,
-    message: 'Hello',
+    messages: {
+        0: 'Hello', // Начальное сообщение для первого контакта
+    },
 };
 
 export function messengerReducer(
@@ -23,27 +25,32 @@ export function messengerReducer(
     action: Action
 ) {
     switch (action.type) {
-        case 'changed_selection': {
-            return {
-                ...state,
-                selectedId: action.contactId,
-                message: '',
-            };
-        }
-        case 'edited_message': {
-            return {
-                ...state,
-                message: action.message,
-            };
-        }
-        case 'sent_message': {
-            return {
-              ...state,
-              message: '',
-            };
-          }        
-        default: {
-            throw Error('Unknown action: ' + action.type);
+            case 'changed_selection': {
+                return {
+                    ...state,
+                    selectedId: action.contactId,
+                };
+            }
+            case 'edited_message': {
+                return {
+                    ...state,
+                    messages: {
+                        ...state.messages,
+                        [state.selectedId]: action.message,
+                    },
+                };
+            }
+            case 'sent_message': {
+                return {
+                  ...state,
+                  messages: {
+                      ...state.messages,
+                      [state.selectedId]: '', // Очищаем сообщение после отправки
+                  },
+                };
+              }
+            default: {
+                throw Error('Unknown action: ' + action.type);
+            }
         }
     }
-}
