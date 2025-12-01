@@ -12,7 +12,7 @@ export type Action = {
 } | {
     type: 'sent_message';
     message: string;
-};;
+};
 
 export const initialState = {
     selectedId: 0,
@@ -37,8 +37,11 @@ export function messengerReducer(
                 message: action.message,
             };
         }
-        default: {
-            throw Error('Unknown action: ' + action.type);
+        case 'sent_message': {
+            return {
+                ...state,
+                message: '',
+            };
         }
     }
 }

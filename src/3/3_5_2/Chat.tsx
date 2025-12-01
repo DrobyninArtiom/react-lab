@@ -12,19 +12,26 @@ export default function Chat(
     }
 ) {
   return (
-    <section className="chat">
-      <textarea
-        value={message}
-        placeholder={'Chat to ' + contact.name}
-        onChange={(e) => {
+      <section className="chat">
+        <textarea
+          value={message}
+          placeholder={'Chat to ' + contact.name}
+          onChange={(e) => {
+              dispatch({
+                  type: 'edited_message',
+                  message: e.target.value,
+                });
+          }}
+        />
+        <br />
+        <button onClick={(e) => {
+            e.preventDefault();
+            alert(`Sending "${message}" to ${contact.email}`);
             dispatch({
-                type: 'edited_message',
-                message: e.target.value,
-              });
-        }}
-      />
-      <br />
-      <button>Send to {contact.email}</button>
-    </section>
-  );
-}
+                type: 'sent_message',
+                message: message,
+            });
+        }}>Send to {contact.email}</button>
+      </section>
+    );
+  }
