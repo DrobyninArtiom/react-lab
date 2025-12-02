@@ -9,16 +9,19 @@ export default function MyInput(
         onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     }) {
 
-    const ref = useRef(null);
-
-    // TODO: This doesn't quite work. Fix it.
-    // ref.current.focus()    
-
-    return (
-        <input
-            ref={ref}
-            value={value}
-            onChange={onChange}
-        />
-    );
-}
+    const ref = useRef<HTMLInputElement>(null);
+    
+        useEffect(() => {
+            if (ref.current) {
+                ref.current.focus();
+            }
+        }, []); // Пустой массив зависимостей означает, что эффект выполнится только при монтировании
+    
+        return (
+            <input
+                ref={ref}
+                value={value}
+                onChange={onChange}
+            />
+        );
+    }
