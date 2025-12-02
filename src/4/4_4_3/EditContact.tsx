@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+// 4_4_3 Reset state without Effects - Removed useEffect and rely on key prop to reset state when contact changes
+import { useState } from 'react';
 import { ContactType } from './App';
 
 export default function EditContact(
@@ -7,11 +8,6 @@ export default function EditContact(
 ) {
   const [name, setName] = useState(savedContact.name);
   const [email, setEmail] = useState(savedContact.email);
-
-  useEffect(() => {
-    setName(savedContact.name);
-    setEmail(savedContact.email);
-  }, [savedContact]);
 
   return (
     <section>
