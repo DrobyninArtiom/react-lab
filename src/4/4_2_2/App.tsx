@@ -1,17 +1,22 @@
-// 4_2_2 Focus the search field
-/*
-  Сделайте так, чтобы нажатие на кнопку "Поиск" наводило фокус на поле.
-*/
+// 4_2_2 Focus the search field - Added ref to input and implemented focus on button click
+import { useRef } from 'react';
 
 export default function Page() {
-  return (
-    <>
-      <nav>
-        <button>Search</button>
-      </nav>
-      <input
-        placeholder="Looking for something?"
-      />
-    </>
-  );
+    const inputRef = useRef<HTMLInputElement>(null);
+    
+    function handleClick() {
+        inputRef.current?.focus();
+    }
+
+    return (
+        <>
+            <nav>
+                <button onClick={handleClick}>Search</button>
+            </nav>
+            <input
+                ref={inputRef}
+                placeholder="Looking for something?"
+            />
+        </>
+    );
 }
